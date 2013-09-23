@@ -5,9 +5,12 @@ import java.util.Iterator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import ru.skuptsov.logviewer.annotation.JSON;
 import ru.skuptsov.logviewer.annotation.XPATH;
 import ru.skuptsov.logviewer.model.LogField;
 import ru.skuptsov.logviewer.model.LogMessage;
@@ -22,9 +25,10 @@ public class LogObjectModel implements LogMessage {
 	Integer id;
 
 	@Id
+	@GeneratedValue
 	@Column(name = "ID")
 	public Integer getId() {
-		return 1;
+		return id;
 	}
 
 	public void setId(Integer id) {
@@ -49,16 +53,15 @@ public class LogObjectModel implements LogMessage {
 	}
 
 	@Column(name = "messageid")
-	@XPATH(expression = "/*//*//requestID")
+	// @XPATH(expression = "//requestID")
+	@JSON(expression = "$.logObject.messageId")
 	public String getMessageID() {
 		return messageID;
 	}
 
 	@Column(name = "mediationname")
-	@XPATH(expression = "concat(/*//TARGET_MODULE,' ',/*//TARGET_METHOD,' '," +
-			"concat( substring('Request',1, number(*//eventNature = 'ENTRY') *  " +
-			"string-length('Request')),  substring('Response',1, number(*//eventNature = 'EXIT')*  " +
-			"string-length('Response')) ))")
+	// @XPATH(expression = "//mediationName")
+	@JSON(expression = "$.logObject.mediationName")
 	public String getMediationName() {
 		return mediationName;
 	}

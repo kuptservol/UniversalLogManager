@@ -16,7 +16,7 @@ public class SimpleLogObjectConsumer implements LogObjectConsumer {
 		logger.info("ENTRY logMessage " + object);
 		boolean result=false;
 		try {
-			result = ConsumerHelper.saveMessageTemplate(object);
+			result = ConsumerHelper.logMessage(object);
 		} catch (Exception e) {
 			logger.error("Exception while logging message Cause:"+e.toString());
 		}

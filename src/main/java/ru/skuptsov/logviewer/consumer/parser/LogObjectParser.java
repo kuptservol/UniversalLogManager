@@ -1,13 +1,11 @@
 package ru.skuptsov.logviewer.consumer.parser;
 
-
 /**
- * Parsing custom objects returns object with business
- * fields to persist
- * @author skuptsov
- *
+ * Parsing custom objects returns object with business fields to persist
+ * 
+ * 
  */
 public interface LogObjectParser {
 
-	Object parse(Object object) throws Exception;
+	Object parse(Object logObject) throws Exception;
 }

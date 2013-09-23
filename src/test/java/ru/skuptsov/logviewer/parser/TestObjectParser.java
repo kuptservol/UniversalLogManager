@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.sun.jmx.snmp.Timestamp;
-
 import ru.skuptsov.logviewer.consumer.parser.LogObjectParser;
 import ru.skuptsov.logviewer.model.LogField;
 import ru.skuptsov.logviewer.model.LogMessage;
@@ -38,7 +36,8 @@ public class TestObjectParser implements LogObjectParser {
 		LogMessageImpl message = new LogMessageImpl();
 		message.setTableName("MSGLOG");
 		final LogField field1 = new LogField("TIMESTAMP", new Date());
-		final LogField field2 = new LogField("MESSAGEID", new String("CSD6464687456"));
+		final LogField field2 = new LogField("MESSAGEID", new String(
+				"CSD6464687456"));
 		final LogField field3 = new LogField("MEDIATIONNAME", new String(
 				"NF_CardInformationServiceModule"));
 

@@ -6,7 +6,11 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 	<!-- Parser -->
 	<bean id="logObjectParser"
-		class="ru.skuptsov.logviewer.consumer.parser.impl.POJOSimpleParser">
+		class="ru.skuptsov.logviewer.consumer.parser.impl.JSONPathAnnotationModelParser">
+
+		<constructor-arg>
+			<ref bean="logObjectModel" />
+		</constructor-arg>
 	</bean>
 
 	<!-- Model -->
@@ -22,7 +26,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>
