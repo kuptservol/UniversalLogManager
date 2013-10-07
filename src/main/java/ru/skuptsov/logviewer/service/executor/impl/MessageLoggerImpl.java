@@ -4,20 +4,26 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import ru.skuptsov.logviewer.model.LogMessage;
+import ru.skuptsov.logviewer.persistance.bo.LogMessagePersister;
 import ru.skuptsov.logviewer.service.executor.MessageLogger;
 import ru.skuptsov.logviewer.service.init.LogViewer;
 
 public class MessageLoggerImpl implements MessageLogger {
 
+	//TODO:comments
 	private static final int DEFAULT_POOL_SIZE = 10;
 	private static String executorType;
 	private static int poolSize;
-	private static boolean isPooled;
-	private boolean isAsync;
+	private static boolean isPooled = false;
+	private boolean isAsync = false;
 	private static final Logger logger = Logger
 			.getLogger(MessageLoggerImpl.class);
+
+	@Autowired(required = true)
+	private LogMessagePersister logMessagePersister;
 
 	private enum EXECUTOR_TYPE {
 		FIXED("fixed"), CACHED("cached"), CUSTOM("custom");
@@ -34,7 +40,7 @@ public class MessageLoggerImpl implements MessageLogger {
 	}
 
 	/**
-	 * Creating executor in lazy manner
+	 * Creating executor lazy
 	 */
 	private static class EXECUTOR {
 		private static Executor executor = null;
@@ -76,7 +82,7 @@ public class MessageLoggerImpl implements MessageLogger {
 
 					@Override
 					public void run() {
-						LogViewer.getMessageBO().save(message);
+						logMessagePersister.save(message);
 
 					}
 
@@ -86,13 +92,13 @@ public class MessageLoggerImpl implements MessageLogger {
 
 					@Override
 					public void run() {
-						LogViewer.getMessageBO().save(message);
+						logMessagePersister.save(message);
 
 					}
 				}).start();
 			}
 		} else {
-			return LogViewer.getMessageBO().save(message);
+			return logMessagePersister.save(message);
 		}
 
 		logger.info("EXIT logMessage ");

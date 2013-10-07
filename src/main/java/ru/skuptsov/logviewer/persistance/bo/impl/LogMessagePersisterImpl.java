@@ -3,16 +3,16 @@ package ru.skuptsov.logviewer.persistance.bo.impl;
 import org.apache.log4j.Logger;
 
 import ru.skuptsov.logviewer.model.LogMessage;
-import ru.skuptsov.logviewer.persistance.bo.LogMessageBO;
+import ru.skuptsov.logviewer.persistance.bo.LogMessagePersister;
 import ru.skuptsov.logviewer.persistance.dao.LogMessageDAO;
 
-public class LogMessageBOImpl implements LogMessageBO {
+public class LogMessagePersisterImpl implements LogMessagePersister {
 
 	private static final Logger logger = Logger
-			.getLogger(LogMessageBOImpl.class);
+			.getLogger(LogMessagePersisterImpl.class);
 	private final LogMessageDAO logMessageDAO;
  
-	public LogMessageBOImpl(LogMessageDAO logMessageDAO) {
+	public LogMessagePersisterImpl(LogMessageDAO logMessageDAO) {
 		this.logMessageDAO = logMessageDAO;
 	}
 

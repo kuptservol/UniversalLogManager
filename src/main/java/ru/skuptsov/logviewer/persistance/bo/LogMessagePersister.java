@@ -5,7 +5,7 @@ package ru.skuptsov.logviewer.persistance.bo;
  * @author skuptsov
  *
  */
-public interface LogMessageBO {
+public interface LogMessagePersister {
 	
 	boolean save(Object message);
 	boolean delete(Object message);

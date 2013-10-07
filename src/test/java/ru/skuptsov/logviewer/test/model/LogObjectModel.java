@@ -25,7 +25,7 @@ public class LogObjectModel implements LogMessage {
 	Integer id;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "ID")
 	public Integer getId() {
 		return id;
