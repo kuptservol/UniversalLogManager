@@ -1,8 +1,6 @@
-package ru.skuptsov.logviewer;
+package ru.skuptsov.logviewer.test.parser;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import javax.sql.DataSource;
 
 import junit.framework.Assert;
 
@@ -15,12 +13,13 @@ import org.springframework.test.annotation.Repeat;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import ru.skuptsov.logviewer.TestUtils;
 import ru.skuptsov.logviewer.consumer.parser.LogObjectParser;
 import ru.skuptsov.logviewer.service.executor.MessageLogger;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:applicationContext.xml" })
-public class LoggerTest {
+@ContextConfiguration(locations = { "classpath:config/applicationJSONTestContext.xml" })
+public class LoggerJSONTest extends TestUtils{
 
 	@Autowired(required = true)
 	private MessageLogger messageLogger;
@@ -28,36 +27,26 @@ public class LoggerTest {
 	@Autowired(required = true)
 	private LogObjectParser logObjectParser;
 
-	@Autowired
 	private SimpleJdbcTemplate jdbcTemplate;
 
-	@Repeat(value = 10)
+	@Autowired
+	public void setDataSource(DataSource dataSource) {
+		this.jdbcTemplate = new SimpleJdbcTemplate(dataSource);
+	}
+
+	@Repeat(value = 1)
 	@Test
 	public void test() throws Exception {
 		messageLogger.logMessage(logObjectParser
 				.parse(readFile("/test/json_ex_1.json")));
 	}
 
-	private static String readFile(String file) throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(
-				LoggerTest.class.getResourceAsStream(file)));
-
-		String line = null;
-		StringBuilder stringBuilder = new StringBuilder();
-		String ls = System.getProperty("line.separator");
-
-		while ((line = reader.readLine()) != null) {
-			stringBuilder.append(line);
-			stringBuilder.append(ls);
-		}
-
-		return stringBuilder.toString();
-	}
-
 	@After
 	public void checkData() {
-		Assert.assertEquals(jdbcTemplate
-				.queryForInt("select count(*) from MSGLOG where mediationname='NF_CardInformationService'"), 9);
+		Assert.assertEquals(
+				jdbcTemplate
+						.queryForObject("select messageid from MSGLOG where mediationname='NF_CardInformationService'", String.class),
+				"FES12324450056");
 	}
 
 }

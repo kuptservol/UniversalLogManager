@@ -17,7 +17,7 @@ import ru.skuptsov.logviewer.model.LogMessage;
 
 @Entity
 @Table(name = "MSGLOG")
-public class LogObjectModel implements LogMessage {
+public class HibernateJSONLogObjectModel implements LogMessage {
 
 	private Date timestamp;
 	private String messageID;

@@ -1,7 +1,7 @@
 <logMessage xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
 	<requestID>CSD078-8-08</requestID>
-	<mediationName>NF_CardInformationServiceModule</mediationName>
+	<mediationName>NF_LoanInformationServiceModule</mediationName>
 	<message></message>
 	
 </logMessage>
