@@ -5,7 +5,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 	<!-- Core Message Logger -->
 	<bean id="messageLogger"
-		class="ru.skuptsov.logviewer.service.executor.impl.MessageLoggerImpl">
+		class="ru.skuptsov.logviewer.service.executor.impl.LogMessagePersisterImpl">
 		<property name="executorType" value="fixed" />
 		<property name="poolSize" value="10" />
 		<property name="isPooled" value="true" />
@@ -13,8 +13,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	</bean>
 
 	<!-- Business Object -->
-	<bean id="logMessageBO"
-		class="ru.skuptsov.logviewer.persistance.bo.impl.LogMessageBOImpl">
+	<bean id="logMessageBO" class="ru.skuptsov.logviewer.persistance.bo.impl.LogMessagePersisterBOImpl">
 		<constructor-arg>
 			<ref bean="logMessageDAO" />
 		</constructor-arg>

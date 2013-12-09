@@ -8,7 +8,9 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.test.annotation.Repeat;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -17,18 +19,15 @@ import ru.skuptsov.logviewer.TestUtils;
 import ru.skuptsov.logviewer.client.aspect.LogObject;
 import ru.skuptsov.logviewer.client.aspect.SimpleLogObjectClientAspect;
 import ru.skuptsov.logviewer.consumer.parser.LogObjectParser;
-import ru.skuptsov.logviewer.service.executor.MessageLogger;
+import ru.skuptsov.logviewer.service.executor.LogMessagePersister;
 import ru.skuptsov.logviewer.test.model.HibernatePlainLogObjectModel;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:config/applicationPlainAspectTestContext.xml" })
 public class AspectTest extends TestUtils {
 
-	@Autowired(required = true)
-	private MessageLogger messageLogger;
-
-	@Autowired(required = true)
-	private LogObjectParser logObjectParser;
+	@Autowired
+	private AspectTestBean aspectTest;
 
 	private SimpleJdbcTemplate jdbcTemplate;
 
@@ -39,16 +38,11 @@ public class AspectTest extends TestUtils {
 
 	@Test
 	public void testMethodParameterLog() {
-		method("test", new HibernatePlainLogObjectModel() {
-			{
-				setMessageID("PLAIN12345");
-				setMediationName("NF_ContractInformationService");
-			}
-		});
-	}
+		HibernatePlainLogObjectModel logObject = new HibernatePlainLogObjectModel();
+		logObject.setMessageID("PLAIN12345");
+		logObject.setMediationName("NF_ContractInformationService");
 
-	@LogObject
-	public void method(String stringParameter, Object logObject) {
+		aspectTest.method("test", logObject);
 	}
 
 	@After

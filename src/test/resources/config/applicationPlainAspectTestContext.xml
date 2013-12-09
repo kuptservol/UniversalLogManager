@@ -15,14 +15,21 @@
 	<context:annotation-config />
 	<import resource="datasource.xml" />
 
+	<bean id="aspectTest" class="ru.skuptsov.logviewer.test.client.AspectTestBean" />
+
 	<bean id="logObjectAspect"
 		class="ru.skuptsov.logviewer.client.aspect.SimpleLogObjectClientAspect" />
 
+
+	<!--xml aop advise example: <aop:config> <aop:aspect ref="logObjectAspect"> 
+		<aop:pointcut expression="@annotation(ru.skuptsov.logviewer.client.aspect.LogObject)" 
+		id="methodExecution" /> <aop:after method="after" pointcut-ref="methodExecution" 
+		/> </aop:aspect> </aop:config> -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
 	<!-- Core Message Logger -->
 	<bean id="messageLogger"
-		class="ru.skuptsov.logviewer.service.executor.impl.MessageLoggerImpl">
+		class="ru.skuptsov.logviewer.service.executor.impl.LogMessagePersisterImpl">
 		<property name="executorType" value="fixed" />
 		<property name="poolSize" value="10" />
 		<property name="isPooled" value="true" />
@@ -30,8 +37,7 @@
 	</bean>
 
 	<!-- Business Object -->
-	<bean id="logMessagePersister"
-		class="ru.skuptsov.logviewer.persistance.bo.impl.LogMessagePersisterImpl">
+	<bean id="logMessagePersister" class="ru.skuptsov.logviewer.persistance.bo.impl.LogMessagePersisterBOImpl">
 		<constructor-arg>
 			<ref bean="logMessageDAO" />
 		</constructor-arg>

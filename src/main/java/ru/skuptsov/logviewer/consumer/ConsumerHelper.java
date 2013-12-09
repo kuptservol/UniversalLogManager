@@ -26,7 +26,7 @@ public class ConsumerHelper {
 
 	public static boolean logMessage(Object object) throws Exception {
 		try {
-			return LogViewer.getLogger().logMessage(
+			return LogViewer.getLogger().persistLogMessage(
 					LogViewer.getParser().parse(object));
 		} catch (Exception e) {
 

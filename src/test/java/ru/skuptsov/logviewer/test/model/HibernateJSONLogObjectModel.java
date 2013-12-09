@@ -53,14 +53,12 @@ public class HibernateJSONLogObjectModel implements LogMessage {
 	}
 
 	@Column(name = "messageid")
-	// @XPATH(expression = "//requestID")
 	@JSON(expression = "$.logObject.messageId")
 	public String getMessageID() {
 		return messageID;
 	}
 
 	@Column(name = "mediationname")
-	// @XPATH(expression = "//mediationName")
 	@JSON(expression = "$.logObject.mediationName")
 	public String getMediationName() {
 		return mediationName;

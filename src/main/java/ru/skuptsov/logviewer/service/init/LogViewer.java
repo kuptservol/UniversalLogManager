@@ -5,9 +5,9 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import ru.skuptsov.logviewer.consumer.parser.LogObjectParser;
-import ru.skuptsov.logviewer.persistance.bo.LogMessagePersister;
-import ru.skuptsov.logviewer.service.executor.MessageLogger;
-
+import ru.skuptsov.logviewer.persistance.bo.LogMessagePersisterBO;
+import ru.skuptsov.logviewer.service.executor.LogMessagePersister;
+import ru.skuptsov.logviewer.service.executor.impl.LogMessagePersisterImpl;
 
 public class LogViewer {
 
@@ -16,7 +16,7 @@ public class LogViewer {
 
 	// TODO:
 	@Autowired(required = true)
-	private static MessageLogger messageLogger;
+	private static LogMessagePersisterImpl messageLogger;
 
 	// TODO:
 	@Autowired(required = true)
@@ -24,9 +24,9 @@ public class LogViewer {
 
 	// TODO:
 	@Autowired(required = true)
-	private static LogMessagePersister logMessagePersister;
+	private static LogMessagePersisterBO logMessagePersister;
 
-	public static MessageLogger getLogger() {
+	public static LogMessagePersister getLogger() {
 		return messageLogger;
 	}
 
@@ -35,17 +35,14 @@ public class LogViewer {
 		return logObjectParser;
 	}
 
-	public static LogMessagePersister getMessagePersister() {
+	public static LogMessagePersisterBO getMessagePersister() {
 		return logMessagePersister;
 	}
 
-	public static MessageLogger getMessageLogger() {
-		return messageLogger;
-	}
-
-	public static void setMessageLogger(MessageLogger messageLogger) {
-		LogViewer.messageLogger = messageLogger;
-	}
+	/*
+	 * public static void setMessageLogger(LogMessagePersister messageLogger) {
+	 * LogViewer.messageLogger = messageLogger; }
+	 */
 
 	public static LogObjectParser getLogObjectParser() {
 		return logObjectParser;

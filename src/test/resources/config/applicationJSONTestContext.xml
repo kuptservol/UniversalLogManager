@@ -15,7 +15,7 @@
 
 	<!-- Core Message Logger -->
 	<bean id="messageLogger"
-		class="ru.skuptsov.logviewer.service.executor.impl.MessageLoggerImpl">
+		class="ru.skuptsov.logviewer.service.executor.impl.LogMessagePersisterImpl">
 		<property name="executorType" value="fixed" />
 		<property name="poolSize" value="10" />
 		<property name="isPooled" value="true" />
@@ -24,7 +24,7 @@
 
 	<!-- Business Object -->
 	<bean id="logMessagePersister"
-		class="ru.skuptsov.logviewer.persistance.bo.impl.LogMessagePersisterImpl">
+		class="ru.skuptsov.logviewer.persistance.bo.impl.LogMessagePersisterBOImpl">
 		<constructor-arg>
 			<ref bean="logMessageDAO" />
 		</constructor-arg>

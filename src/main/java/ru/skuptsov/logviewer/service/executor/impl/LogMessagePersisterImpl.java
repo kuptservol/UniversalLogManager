@@ -7,23 +7,23 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ru.skuptsov.logviewer.model.LogMessage;
-import ru.skuptsov.logviewer.persistance.bo.LogMessagePersister;
-import ru.skuptsov.logviewer.service.executor.MessageLogger;
+import ru.skuptsov.logviewer.persistance.bo.LogMessagePersisterBO;
+import ru.skuptsov.logviewer.service.executor.LogMessagePersister;
 import ru.skuptsov.logviewer.service.init.LogViewer;
 
-public class MessageLoggerImpl implements MessageLogger {
+public class LogMessagePersisterImpl implements LogMessagePersister {
 
-	//TODO:comments
+	// TODO:comments
 	private static final int DEFAULT_POOL_SIZE = 10;
 	private static String executorType;
 	private static int poolSize;
 	private static boolean isPooled = false;
 	private boolean isAsync = false;
 	private static final Logger logger = Logger
-			.getLogger(MessageLoggerImpl.class);
+			.getLogger(LogMessagePersisterImpl.class);
 
 	@Autowired(required = true)
-	private LogMessagePersister logMessagePersister;
+	private LogMessagePersisterBO logMessagePersister;
 
 	private enum EXECUTOR_TYPE {
 		FIXED("fixed"), CACHED("cached"), CUSTOM("custom");
@@ -46,7 +46,7 @@ public class MessageLoggerImpl implements MessageLogger {
 		private static Executor executor = null;
 		static {
 			logger.info("ENTRY Initializing executor");
-			if (MessageLoggerImpl.isPooled()) {
+			if (LogMessagePersisterImpl.isPooled()) {
 				if (executorType == null || executorType.equals("")) {
 					executor = Executors.newFixedThreadPool(DEFAULT_POOL_SIZE);
 				} else {
@@ -73,7 +73,7 @@ public class MessageLoggerImpl implements MessageLogger {
 
 	}
 
-	public boolean logMessage(final Object message) {
+	public boolean persistLogMessage(final Object message) {
 		logger.info("ENTRY logMessage " + message.toString());
 
 		if (isAsync()) {

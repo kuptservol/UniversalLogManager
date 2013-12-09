@@ -8,7 +8,11 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface LogObject {
-	
-	String logMethodArgument() default "";
+
+	int logMethodArgument();
+
+	boolean logAllMethodArguments() default true;
+
+	boolean logReturnObject() default true;
 
 }

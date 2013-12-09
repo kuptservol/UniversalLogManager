@@ -15,14 +15,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import ru.skuptsov.logviewer.TestUtils;
 import ru.skuptsov.logviewer.consumer.parser.LogObjectParser;
-import ru.skuptsov.logviewer.service.executor.MessageLogger;
+import ru.skuptsov.logviewer.service.executor.LogMessagePersister;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:config/applicationJSONTestContext.xml" })
-public class LoggerJSONTest extends TestUtils{
+public class LoggerJSONTest extends TestUtils {
 
 	@Autowired(required = true)
-	private MessageLogger messageLogger;
+	private LogMessagePersister messageLogger;
 
 	@Autowired(required = true)
 	private LogObjectParser logObjectParser;
@@ -37,7 +37,7 @@ public class LoggerJSONTest extends TestUtils{
 	@Repeat(value = 1)
 	@Test
 	public void test() throws Exception {
-		messageLogger.logMessage(logObjectParser
+		messageLogger.persistLogMessage(logObjectParser
 				.parse(readFile("/test/json_ex_1.json")));
 	}
 
@@ -45,8 +45,9 @@ public class LoggerJSONTest extends TestUtils{
 	public void checkData() {
 		Assert.assertEquals(
 				jdbcTemplate
-						.queryForObject("select messageid from MSGLOG where mediationname='NF_CardInformationService'", String.class),
-				"FES12324450056");
+						.queryForObject(
+								"select messageid from MSGLOG where mediationname='NF_CardInformationService'",
+								String.class), "FES12324450056");
 	}
 
 }
