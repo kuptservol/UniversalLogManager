@@ -19,7 +19,7 @@ import ru.skuptsov.logviewer.service.executor.LogMessagePersister;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:config/applicationXMLTestContext.xml" })
-public class LoggerXMLTest extends TestUtils {
+public class LoggerXMLSourceAnnConfigTest extends TestUtils {
 
 	@Autowired(required = true)
 	private LogMessagePersister messageLogger;
@@ -38,7 +38,7 @@ public class LoggerXMLTest extends TestUtils {
 	@Test
 	public void test() throws Exception {
 		messageLogger.persistLogMessage(logObjectParser
-				.parse(readFile("/test/log_ex_1.xml")));
+				.parse(readFile("/test_data/log_ex_1.xml")));
 	}
 
 	@After

@@ -8,10 +8,8 @@
 		http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-
 	<context:annotation-config />
-	
-	<import resource="datasource.xml"/>
+	<import resource="datasource.xml" />
 
 	<!-- Core Message Logger -->
 	<bean id="messageLogger"
@@ -61,12 +59,7 @@
 				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>
-		<property name="annotatedClasses">
-			<list>
-				<value>ru.skuptsov.logviewer.test.model.HibernateJSONLogObjectModel
-				</value>
-			</list>
-		</property>
+		<property name="packagesToScan" value="ru.skuptsov.logviewer.test.model" />
 	</bean>
 
 

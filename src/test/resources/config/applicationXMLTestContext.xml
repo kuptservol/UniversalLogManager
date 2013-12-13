@@ -22,7 +22,8 @@
 	</bean>
 
 	<!-- Business Object -->
-	<bean id="logMessagePersister" class="ru.skuptsov.logviewer.persistance.bo.impl.LogMessagePersisterBOImpl">
+	<bean id="logMessagePersister"
+		class="ru.skuptsov.logviewer.persistance.bo.impl.LogMessagePersisterBOImpl">
 		<constructor-arg>
 			<ref bean="logMessageDAO" />
 		</constructor-arg>
@@ -58,12 +59,7 @@
 				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>
-		<property name="annotatedClasses">
-			<list>
-				<value>ru.skuptsov.logviewer.test.model.HibernateXMLLogObjectModel
-				</value>
-			</list>
-		</property>
+		<property name="packagesToScan" value="ru.skuptsov.logviewer.test.model"/>
 	</bean>
 
 

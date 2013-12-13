@@ -19,7 +19,7 @@ import org.w3c.dom.Document;
 
 import ru.skuptsov.logviewer.annotation.XPATH;
 import ru.skuptsov.logviewer.consumer.ConsumerHelper;
-import ru.skuptsov.logviewer.consumer.ModelExpressionReader;
+import ru.skuptsov.logviewer.consumer.expression.AnnotationModelExpressionReader;
 import ru.skuptsov.logviewer.consumer.parser.AbstractExpressionParser;
 import ru.skuptsov.logviewer.consumer.parser.LogObjectParser;
 import ru.skuptsov.logviewer.consumer.parser.extractor.Extractor;
@@ -39,8 +39,8 @@ public class XpathAnnotationModelParser<T> extends AbstractExpressionParser<T> {
 
 		try {
 
-			ConsumerHelper.readModel(model, objectPersistanceModel,
-					XPATH.class, new ModelExpressionReader<XPathExpression>() {
+			ConsumerHelper.readAnnotatedModel(model, objectPersistanceModel,
+					XPATH.class, new AnnotationModelExpressionReader<XPathExpression>() {
 
 						@Override
 						public XPathExpression getExpression(
@@ -98,12 +98,9 @@ public class XpathAnnotationModelParser<T> extends AbstractExpressionParser<T> {
 	@Override
 	protected void validate(Object logObject) throws Exception {
 
-		if (!(logObject instanceof String)) {
-			String message = "Parsing object must be of String type";
-			logger.error(message);
-			throw new LogViewerOperationException(message);
-		}
-
+		ConsumerHelper.validateObjectType(logObject, String.class);
 	}
+
+	
 
 }

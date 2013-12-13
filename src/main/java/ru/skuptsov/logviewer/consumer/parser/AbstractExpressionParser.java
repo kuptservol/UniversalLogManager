@@ -21,6 +21,7 @@ public abstract class AbstractExpressionParser<T> implements LogObjectParser {
 			.getLogger(AbstractExpressionParser.class);
 	protected T model = null;
 
+
 	@Override
 	public Object parse(Object logObject) throws Exception {
 		logger.info("ENTRY parse");
