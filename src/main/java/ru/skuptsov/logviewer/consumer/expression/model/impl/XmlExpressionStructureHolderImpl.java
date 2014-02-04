@@ -21,7 +21,7 @@ public class XmlExpressionStructureHolderImpl implements
 
 	public XmlExpressionStructureHolderImpl(String xmlResourcePath) {
 
-		Resource xmlResource = appContext.getResource(xmlResourcePath);
+		//Resource xmlResource = appContext.getResource(xmlResourcePath);
 		
 		//xmlResource.getInputStream()
 

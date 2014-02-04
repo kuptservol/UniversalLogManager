@@ -61,7 +61,6 @@
 		<property name="mappingLocations">
             <list>
                 <value>classpath:config/hibernate/LogObjectOne.hbm.xml</value>
-               <!--  <value>classpath:org/springbyexample/orm/hibernate3/bean/Person.hbm.xml</value> -->
             </list>
         </property>
 	</bean>
