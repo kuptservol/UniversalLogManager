@@ -4,13 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import ru.skuptsov.logviewer.test.parser.LoggerJSONTest;
+import ru.skuptsov.logviewer.test.parser.LoggerJSONSourceAnnConfigTest;
 
 public class TestUtils {
 	
 	protected  String readFile(String file) throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(
-				LoggerJSONTest.class.getResourceAsStream(file)));
+				LoggerJSONSourceAnnConfigTest.class.getResourceAsStream(file)));
 
 		String line = null;
 		StringBuilder stringBuilder = new StringBuilder();

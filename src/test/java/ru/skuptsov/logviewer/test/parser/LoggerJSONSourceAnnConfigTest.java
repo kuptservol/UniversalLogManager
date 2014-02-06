@@ -19,7 +19,7 @@ import ru.skuptsov.logviewer.service.executor.LogMessagePersister;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:config/applicationJSONTestContext.xml" })
-public class LoggerJSONTest extends TestUtils {
+public class LoggerJSONSourceAnnConfigTest extends TestUtils {
 
 	@Autowired(required = true)
 	private LogMessagePersister messageLogger;
@@ -38,7 +38,7 @@ public class LoggerJSONTest extends TestUtils {
 	@Test
 	public void test() throws Exception {
 		messageLogger.persistLogMessage(logObjectParser
-				.parse(readFile("/test/json_ex_1.json")));
+				.parse(readFile("/test_data/json_ex_1.json")));
 	}
 
 	@After

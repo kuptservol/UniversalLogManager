@@ -18,8 +18,8 @@ import ru.skuptsov.logviewer.consumer.parser.LogObjectParser;
 import ru.skuptsov.logviewer.service.executor.LogMessagePersister;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:config/applicationXMLTestContext.xml" })
-public class LoggerXMLTest extends TestUtils {
+@ContextConfiguration(locations = { "classpath:config/applicationXMLTestXmlHibConfigContext.xml" })
+public class LoggerXMLSourceHibernateXmlConfigTest extends TestUtils {
 
 	@Autowired(required = true)
 	private LogMessagePersister messageLogger;
@@ -38,7 +38,9 @@ public class LoggerXMLTest extends TestUtils {
 	@Test
 	public void test() throws Exception {
 		messageLogger.persistLogMessage(logObjectParser
-				.parse(readFile("/test/log_ex_1.xml")));
+				.parse(readFile("/test_data/log_ex_2.xml")));
+		messageLogger.persistLogMessage(logObjectParser
+				.parse(readFile("/test_data/log_ex_2.xml")));
 	}
 
 	@After
@@ -46,8 +48,8 @@ public class LoggerXMLTest extends TestUtils {
 		Assert.assertEquals(
 				jdbcTemplate
 						.queryForObject(
-								"select messageid from MSGLOG where mediationname='NF_LoanInformationServiceModule'",
-								String.class), "CSD078-8-08");
+								"SELECT count(*) FROM MSGLOG WHERE mediationname='NF_SimpleModuleInformationServiceModule'",
+								Integer.class), new Integer(2));
 	}
 
 }

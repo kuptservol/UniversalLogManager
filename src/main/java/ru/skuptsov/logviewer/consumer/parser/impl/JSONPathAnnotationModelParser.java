@@ -3,16 +3,19 @@ package ru.skuptsov.logviewer.consumer.parser.impl;
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.xml.xpath.XPathExpressionException;
+
 import net.sf.cglib.reflect.FastMethod;
 
 import org.apache.log4j.Logger;
+
 import com.jayway.jsonpath.JsonPath;
 
 import ru.skuptsov.logviewer.annotation.JSON;
 import ru.skuptsov.logviewer.annotation.XPATH;
 import ru.skuptsov.logviewer.consumer.ConsumerHelper;
-import ru.skuptsov.logviewer.consumer.ModelExpressionReader;
+import ru.skuptsov.logviewer.consumer.expression.AnnotationModelExpressionReader;
 import ru.skuptsov.logviewer.consumer.parser.AbstractExpressionParser;
 import ru.skuptsov.logviewer.exception.LogViewerConfigurationException;
 import ru.skuptsov.logviewer.exception.LogViewerOperationException;
@@ -30,8 +33,8 @@ public class JSONPathAnnotationModelParser<T> extends
 
 		try {
 
-			ConsumerHelper.readModel(model, objectPersistanceModel, JSON.class,
-					new ModelExpressionReader<String>() {
+			ConsumerHelper.readAnnotatedModel(model, objectPersistanceModel,
+					JSON.class, new AnnotationModelExpressionReader<String>() {
 
 						@Override
 						public String getExpression(Annotation annotation)
@@ -68,12 +71,7 @@ public class JSONPathAnnotationModelParser<T> extends
 	@Override
 	protected void validate(Object logObject) throws Exception {
 
-		if (!(logObject instanceof String)) {
-			String message = "Parsing object must be of String type";
-			logger.error(message);
-			throw new LogViewerOperationException(message);
-		}
-
+		ConsumerHelper.validateObjectType(logObject, String.class);
 	}
 
 }

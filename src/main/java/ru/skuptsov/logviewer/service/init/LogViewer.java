@@ -18,6 +18,10 @@ public class LogViewer {
 	@Autowired(required = true)
 	private static LogMessagePersisterImpl messageLogger;
 
+	public static AbstractApplicationContext getContext() {
+		return context;
+	}
+
 	// TODO:
 	@Autowired(required = true)
 	private static LogObjectParser logObjectParser;
