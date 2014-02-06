@@ -22,7 +22,7 @@ public class LogMessagePersisterImpl implements LogMessagePersister {
 	private static final Logger logger = Logger
 			.getLogger(LogMessagePersisterImpl.class);
 
-	@Autowired(required = true)
+	@Autowired
 	private LogMessagePersisterBO logMessagePersister;
 
 	private enum EXECUTOR_TYPE {

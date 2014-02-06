@@ -9,6 +9,7 @@ import net.sf.cglib.reflect.FastMethod;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 import ru.skuptsov.logviewer.consumer.ConsumerHelper;
 import ru.skuptsov.logviewer.consumer.expression.XmlModelExpressionReader;
@@ -24,10 +25,8 @@ public class JSONPathXmlModelParser<T> extends AbstractExpressionParser<T> {
 
 	private final HashMap<FastMethod, String> objectPersistanceModel = new HashMap<FastMethod, String>();
 
-	@Autowired
-	XmlExpressionStructureHolder xmlStructureHolder;
-
-	public JSONPathXmlModelParser(T model)
+	public JSONPathXmlModelParser(T model,
+			XmlExpressionStructureHolder xmlStructureHolder)
 			throws LogViewerConfigurationException {
 		logger.info("Added model: " + model.toString());
 
@@ -47,7 +46,7 @@ public class JSONPathXmlModelParser<T> extends AbstractExpressionParser<T> {
 		} catch (Exception ex) {
 			logger.error("Error while reading xpath annotation model. Cause: ",
 					ex);
-			throw new LogViewerConfigurationException(ex);
+			// throw new LogViewerConfigurationException(ex);
 		}
 
 		super.model = model;

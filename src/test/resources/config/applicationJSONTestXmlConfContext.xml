@@ -8,6 +8,7 @@
 		http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+	<context:annotation-config />
 	<import resource="datasource.xml" />
 
 	<!-- Core Message Logger -->
@@ -37,10 +38,9 @@
 	<bean id="xmlStructureHolder"
 		class="ru.skuptsov.logviewer.consumer.expression.model.impl.XmlExpressionStructureHolderImpl">
 		<constructor-arg>
-			<value>c:/work/test</value>
+			<value>classpath:config/test_config/xmlModelJsonConfig.xml</value>
 		</constructor-arg>
 	</bean>
-
 
 	<!-- Parser -->
 	<bean id="logObjectParser"
@@ -49,7 +49,9 @@
 		<constructor-arg>
 			<ref bean="logObjectModel" />
 		</constructor-arg>
-		<!-- <constructor-arg> <ref bean="xmlStructureHolder" /> </constructor-arg> -->
+		<constructor-arg>
+			<ref bean="xmlStructureHolder" />
+		</constructor-arg>
 
 	</bean>
 
@@ -74,5 +76,5 @@
 			</list>
 		</property>
 	</bean>
-	<context:annotation-config />
+
 </beans>
